@@ -1,6 +1,4 @@
 /*
- *   SelfOptimisingKNearestLeavesTest.java
- *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -16,9 +14,10 @@
  */
 
 /**
- * 
+ * LASTTest.java
+ * Copyright (C) 2013 University of Waikato, Hamilton, New Zealand
  */
-package moa.classifiers.meta;
+package moa.classifiers.trees;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -26,12 +25,12 @@ import moa.classifiers.AbstractMultipleClassifierTestCase;
 import moa.classifiers.Classifier;
 
 /**
- * Tests the SelfOptimisingKNearestLeaves classifier.
+ * Tests the HoeffdingTree classifier.
  * 
- * @author  Yibin Sun (ys388 at students dot waikato dot ac dot nz)
- * @version $Revision$
+ * @author  Daniel Nowak Assis (daniel dot nowak dot assis at gmail dot com)
+ * @version $Revision 1$ 
  */
-public class SelfOptimisingKNearestLeavesTest
+public class LASTTest
   extends AbstractMultipleClassifierTestCase {
 
   /**
@@ -39,11 +38,12 @@ public class SelfOptimisingKNearestLeavesTest
    *
    * @param name 	the name of the test
    */
-  public SelfOptimisingKNearestLeavesTest(String name) {
+  public LASTTest(String name) {
     super(name);
-    this.setNumberTests(1);
+    this.setNumberTests(2);
   }
 
+  
   /**
    * Returns the classifier setups to use in the regression test.
    *
@@ -51,17 +51,14 @@ public class SelfOptimisingKNearestLeavesTest
    */
   @Override
   protected Classifier[] getRegressionClassifierSetups() {
-    SelfOptimisingKNearestLeaves SOKNLTest = new SelfOptimisingKNearestLeaves();
-    SOKNLTest.ensembleSizeOption.setValue(5);
-    SOKNLTest.mFeaturesModeOption.setChosenIndex(0);
-    SOKNLTest.mFeaturesPerTreeSizeOption.setValue(2);
-    SOKNLTest.DisableSelfOptimisingOption.set();
-    SOKNLTest.kOption.setValue(5);
-
-
-    return new Classifier[]{
-            SOKNLTest,
-    };
+    LAST[]	result;
+    result    = new LAST[2];
+    result[0] = new LAST();
+    result[1] = new LAST();
+    result[0].changeDetectionMethodOption.setValueViaCLIString("RDDM -y 300");
+    	
+    //result[1].distributionOption.setValue(true);
+    return result;
   }
   
   /**
@@ -70,7 +67,7 @@ public class SelfOptimisingKNearestLeavesTest
    * @return		the test suite
    */
   public static Test suite() {
-    return new TestSuite(SelfOptimisingKNearestLeavesTest.class);
+    return new TestSuite(LASTTest.class);
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- *   SelfOptimisingKNearestLeavesTest.java
+ *   StreamingGradientBoostedTreesTest.java
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -26,12 +26,12 @@ import moa.classifiers.AbstractMultipleClassifierTestCase;
 import moa.classifiers.Classifier;
 
 /**
- * Tests the SelfOptimisingKNearestLeaves classifier.
+ * Tests the StreamingGradientBoostedTrees classifier.
  * 
- * @author  Yibin Sun (ys388 at students dot waikato dot ac dot nz)
+ * @author  Nuwan Gunasekara (ng98 at students dot waikato dot ac dot nz)
  * @version $Revision$
  */
-public class SelfOptimisingKNearestLeavesTest
+public class StreamingGradientBoostedTreesTest
   extends AbstractMultipleClassifierTestCase {
 
   /**
@@ -39,7 +39,7 @@ public class SelfOptimisingKNearestLeavesTest
    *
    * @param name 	the name of the test
    */
-  public SelfOptimisingKNearestLeavesTest(String name) {
+  public StreamingGradientBoostedTreesTest(String name) {
     super(name);
     this.setNumberTests(1);
   }
@@ -51,16 +51,11 @@ public class SelfOptimisingKNearestLeavesTest
    */
   @Override
   protected Classifier[] getRegressionClassifierSetups() {
-    SelfOptimisingKNearestLeaves SOKNLTest = new SelfOptimisingKNearestLeaves();
-    SOKNLTest.ensembleSizeOption.setValue(5);
-    SOKNLTest.mFeaturesModeOption.setChosenIndex(0);
-    SOKNLTest.mFeaturesPerTreeSizeOption.setValue(2);
-    SOKNLTest.DisableSelfOptimisingOption.set();
-    SOKNLTest.kOption.setValue(5);
-
+    StreamingGradientBoostedTrees SGBTTest = new StreamingGradientBoostedTrees();
+    SGBTTest.numberOfboostingIterations.setValue(10);
 
     return new Classifier[]{
-            SOKNLTest,
+            SGBTTest,
     };
   }
   
@@ -70,7 +65,7 @@ public class SelfOptimisingKNearestLeavesTest
    * @return		the test suite
    */
   public static Test suite() {
-    return new TestSuite(SelfOptimisingKNearestLeavesTest.class);
+    return new TestSuite(StreamingGradientBoostedTreesTest.class);
   }
 
   /**
