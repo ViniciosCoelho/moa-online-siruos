@@ -6,6 +6,7 @@ import com.github.javacliparser.MultiChoiceOption;
 import com.yahoo.labs.samoa.instances.Instance;
 import moa.AbstractMOAObject;
 import moa.capabilities.CapabilitiesHandler;
+import moa.classifiers.Classifier;
 import moa.classifiers.MultiClassClassifier;
 import moa.classifiers.core.driftdetection.ChangeDetector;
 import moa.classifiers.trees.ARFHoeffdingTree;
@@ -283,6 +284,22 @@ public class CSARF extends AdaptiveRandomForest implements MultiClassClassifier,
             this.executor.shutdownNow();
             this.executor = null;
         }
+    }
+
+    @Override
+    public Classifier[] getSubClassifiers() {
+        Classifier[] ret = new Classifier[ensemble.length];
+        for (int i = 0; i < ret.length; i++) ret[i] = this.ensemble[i].classifier;
+        return ret;
+    }
+
+    @Override
+    public Classifier[] getSublearners() {
+        Classifier[] forest = new Classifier[ensemble.length];
+        for(int i = 0 ; i < forest.length ; ++i)
+            forest[i] = this.ensemble[i].classifier;
+        return forest;
+
     }
 
     protected final class CSARFBaseLearner extends AbstractMOAObject {
