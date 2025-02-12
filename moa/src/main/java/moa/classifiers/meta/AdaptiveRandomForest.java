@@ -231,7 +231,23 @@ public class AdaptiveRandomForest extends AbstractClassifier implements MultiCla
 
     @Override
     protected Measurement[] getModelMeasurementsImpl() {
+        limpaThreads();
         return null;
+    }
+
+    @Override
+    public Measurement[] getModelMeasurements() {
+        Measurement[] measurements = super.getModelMeasurements();
+        limpaThreads();
+        return measurements;
+    }
+
+    public void limpaThreads() {
+        // tries to solve the hanging threads issue
+        if(this.executor != null) {
+            this.executor.shutdownNow();
+            this.executor = null;
+        }
     }
 
     protected void initEnsemble(Instance instance) {
